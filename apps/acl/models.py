@@ -45,7 +45,8 @@ class ADLSDirectory(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['literal_path'], name='unique_directory')
-        ] 
+        ]
+        app_label = "acl"
 
 class ACL(models.Model, RenderMixin):
 
@@ -55,19 +56,26 @@ class ACL(models.Model, RenderMixin):
         constraints = [
             models.UniqueConstraint(fields=['adls_directory'], name='unique_acl')
         ]
+        app_label = "acl"
 
-class UserPermission(models.Model):
+class UserPermission(models.Model, RenderMixin):
     """read write execute permission"""
     user = models.OneToOneField(to=User, on_delete=models.CASCADE) 
     access = models.CharField(max_length=ACCESS_LENGTH)
-    acl = models.ForeignKey(to=ACL, on_delete=models.CASCADE)
+    acl = models.ForeignKey(to=ACL, on_delete=models.CASCADE, related_name="user_permissions")
     default = models.BooleanField(default=False)
 
-class GroupPermission(models.Model):
+    class Meta:
+        app_label = "acl"
+
+class GroupPermission(models.Model, RenderMixin):
     group = models.OneToOneField(to=Group, on_delete=models.CASCADE)
     access = models.CharField(max_length=ACCESS_LENGTH)
-    acl = models.ForeignKey(to=ACL, on_delete=models.CASCADE)
+    acl = models.ForeignKey(to=ACL, on_delete=models.CASCADE, related_name="group_permissions")
     default = models.BooleanField(default=False)
+    
+    class Meta:
+        app_label = "acl"
 
 """
 user::rwx,user:8a9d8fca-254d-462d-9187-2af59e4a2f8d:rwx,user:2a659042-4912-4f53-bd71-6b036c3f672d:rwx,group::r-x,group:6f979684-44b1-45be-aadb-db408c385d94:rwx,group:beb0efb8-fe21-4e80-81d7-7bdb0981a006:rwx,mask::rwx,other::---,default:user::rwx,default:user:8a9d8fca-254d-462d-9187-2af59e4a2f8d:rwx,default:user:2a659042-4912-4f53-bd71-6b036c3f672d:rwx,default:group::r-x,default:group:6f979684-44b1-45be-aadb-db408c385d94:rwx,default:group:beb0efb8-fe21-4e80-81d7-7bdb0981a006:rwx,default:mask::rwx,default:other::---"

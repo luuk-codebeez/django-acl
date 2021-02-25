@@ -32,7 +32,7 @@ INSTALLED_APPS = [
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(BASE_DIR / "portal" / "templates")],
+        "DIRS": [str(BASE_DIR / "apps" / "acl" / "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

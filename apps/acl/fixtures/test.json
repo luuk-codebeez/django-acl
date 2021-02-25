@@ -1,0 +1,33 @@
+[
+    {
+        "model": "acl.User",
+        "pk": 1001,
+        "fields": {
+            "name": "rik.jongerius2@nslogin.nl",
+            "object_id": "blaaaa"
+        }
+    },
+    {
+        "model": "acl.ADLSDirectory",
+        "pk": 2001,
+        "fields": {
+            "literal_path": "/raw/syntho"
+        }
+    },
+    {
+        "model": "acl.UserPermission",
+        "pk": 3001,
+        "fields": {
+            "user": 1001,
+            "access": "RWX",
+            "acl": 4001
+        }
+    },
+    {
+        "model": "acl.ACL",
+        "pk": 4001,
+        "fields": {
+            "adls_directory": 2001
+        }
+    }
+]

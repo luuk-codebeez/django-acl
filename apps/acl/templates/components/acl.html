@@ -1,0 +1,8 @@
+{
+    "path": "{{ object.adls_directory.literal_path}}",
+    "acl": [
+        {% for user_permission in object.user_permissions.all %}
+            {% include user_permission %},
+        {% endfor %}
+    ]
+}
