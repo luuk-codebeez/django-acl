@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     # LOCAL APPS
     "apps.commands",
     "apps.example",
+    "apps.acl",
     # THIRD PARTY
     "django_extensions",
 ]
